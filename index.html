@@ -8,26 +8,47 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #0a0a0a; color: #ededed; }
+        
+        :root {
+            --bg: #ffffff;
+            --text: #171717;
+            --text-muted: #666666;
+            --card-bg: #f5f5f5;
+            --card-border: #e5e5e5;
+            --nav-bg: rgba(255, 255, 255, 0.8);
+            --accent: #3b82f6;
+        }
+
+        .dark-mode {
+            --bg: #0a0a0a;
+            --text: #ededed;
+            --text-muted: #a3a3a3;
+            --card-bg: #171717;
+            --card-border: #262626;
+            --nav-bg: rgba(10, 10, 10, 0.8);
+            --accent: #60a5fa;
+        }
+
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: var(--text); transition: background-color 0.3s, color 0.3s; }
         .mono { font-family: 'Fira Code', monospace; }
-        .gradient-text { background: linear-gradient(90deg, #60a5fa, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .card { background: #171717; border: 1px solid #262626; transition: all 0.3s ease; }
-        .card:hover { border-color: #3b82f6; transform: translateY(-2px); }
-        .nav-link { transition: color 0.2s; }
-        .nav-link:hover { color: #3b82f6; }
+        .gradient-text { background: linear-gradient(90deg, #3b82f6, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .card { background: var(--card-bg); border: 1px solid var(--card-border); transition: all 0.3s ease; }
+        .card:hover { border-color: var(--accent); transform: translateY(-2px); }
+        .nav-link { transition: color 0.2s; color: var(--text-muted); }
+        .nav-link:hover { color: var(--accent); }
     </style>
 </head>
 <body class="selection:bg-blue-500/30">
 
     <!-- Nav -->
-    <nav class="fixed w-full z-50 bg-[#0a0a0a]/80 backdrop-blur-md border-b border-white/5">
+    <nav class="fixed w-full z-50 bg-[var(--nav-bg)] backdrop-blur-md border-b border-black/5 dark:border-white/5">
         <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
-            <span class="mono text-blue-400 font-bold">dimopoulos.me</span>
-            <div class="hidden md:flex gap-8 text-sm font-medium text-gray-400">
+            <span class="mono text-blue-500 dark:text-blue-400 font-bold">dimopoulos.me</span>
+            <div class="hidden md:flex gap-8 text-sm font-medium">
                 <a href="#about" class="nav-link">About</a>
                 <a href="#experience" class="nav-link">Experience</a>
                 <a href="#publications" class="nav-link">Publications</a>
-                <a href="https://github.com/spidim" class="nav-link text-white">GitHub</a>
+                <a href="https://github.com/spidim" class="nav-link !text-[var(--text)]">GitHub</a>
             </div>
         </div>
     </nav>
@@ -36,18 +57,18 @@
         
         <!-- Hero -->
         <section id="about" class="mb-32">
-            <h1 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight text-[var(--text)]">
                 Spiros <span class="gradient-text">Dimopoulos</span>
             </h1>
-            <p class="text-xl md:text-2xl text-gray-400 max-w-2xl leading-relaxed mb-8">
-                Senior Software Engineer at <span class="text-white font-semibold underline decoration-blue-500 underline-offset-4">AWS</span>. 
+            <p class="text-xl md:text-2xl text-[var(--text-muted)] max-w-2xl leading-relaxed mb-8">
+                Senior Software Engineer at <span class="text-[var(--text)] font-semibold underline decoration-blue-500 underline-offset-4">AWS</span>. 
                 Focused on high-performance distributed systems, networking, and cloud-scale resiliency.
             </p>
             <div class="flex gap-4 mono text-sm">
-                <a href="https://www.linkedin.com/in/spiros-dimopoulos-31319476" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-white/5 rounded-full hover:bg-white/10 border border-white/10">
-                    <i class="fab fa-linkedin text-blue-400"></i> LinkedIn
+                <a href="https://www.linkedin.com/in/spiros-dimopoulos-31319476" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-black/5 dark:bg-white/5 rounded-full hover:bg-black/10 dark:hover:bg-white/10 border border-black/10 dark:border-white/10">
+                    <i class="fab fa-linkedin text-blue-500 dark:text-blue-400"></i> LinkedIn
                 </a>
-                <a href="https://github.com/spidim" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-white/5 rounded-full hover:bg-white/10 border border-white/10">
+                <a href="https://github.com/spidim" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-black/5 dark:bg-white/5 rounded-full hover:bg-black/10 dark:hover:bg-white/10 border border-black/10 dark:border-white/10">
                     <i class="fab fa-github"></i> GitHub
                 </a>
             </div>
@@ -56,37 +77,37 @@
         <!-- Stats/Expertise -->
         <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-32">
             <div class="card p-6 rounded-2xl">
-                <div class="text-blue-400 mb-4 text-2xl"><i class="fas fa-bolt"></i></div>
-                <h3 class="font-bold mb-2 uppercase text-xs tracking-widest text-gray-500">Performance</h3>
-                <p class="text-sm text-gray-400">Rust, C++, p99 latency optimization, BPF tools, and kernel-level tuning.</p>
+                <div class="text-blue-500 dark:text-blue-400 mb-4 text-2xl"><i class="fas fa-bolt"></i></div>
+                <h3 class="font-bold mb-2 uppercase text-xs tracking-widest text-[var(--text-muted)]">Performance</h3>
+                <p class="text-sm text-[var(--text-muted)]">Rust, C++, p99 latency optimization, BPF tools, and kernel-level tuning.</p>
             </div>
             <div class="card p-6 rounded-2xl">
-                <div class="text-purple-400 mb-4 text-2xl"><i class="fas fa-cloud"></i></div>
-                <h3 class="font-bold mb-2 uppercase text-xs tracking-widest text-gray-500">Distributed Systems</h3>
-                <p class="text-sm text-gray-400">CloudFront Origin resiliency, QUIC/HTTP3, and massive-scale request fanout.</p>
+                <div class="text-purple-500 dark:text-purple-400 mb-4 text-2xl"><i class="fas fa-cloud"></i></div>
+                <h3 class="font-bold mb-2 uppercase text-xs tracking-widest text-[var(--text-muted)]">Distributed Systems</h3>
+                <p class="text-sm text-[var(--text-muted)]">CloudFront Origin resiliency, QUIC/HTTP3, and massive-scale request fanout.</p>
             </div>
             <div class="card p-6 rounded-2xl">
-                <div class="text-green-400 mb-4 text-2xl"><i class="fas fa-brain"></i></div>
-                <h3 class="font-bold mb-2 uppercase text-xs tracking-widest text-gray-500">Intelligence</h3>
-                <p class="text-sm text-gray-400">MLOps, signal processing, and emotion-aware AI-mediated conversations.</p>
+                <div class="text-green-500 dark:text-green-400 mb-4 text-2xl"><i class="fas fa-brain"></i></div>
+                <h3 class="font-bold mb-2 uppercase text-xs tracking-widest text-[var(--text-muted)]">Intelligence</h3>
+                <p class="text-sm text-[var(--text-muted)]">MLOps, signal processing, and emotion-aware AI-mediated conversations.</p>
             </div>
         </section>
 
         <!-- Experience -->
         <section id="experience" class="mb-32">
-            <h2 class="text-3xl font-bold mb-12 flex items-center gap-4 text-white">
-                Selected Work <span class="h-px bg-white/10 flex-grow"></span>
+            <h2 class="text-3xl font-bold mb-12 flex items-center gap-4 text-[var(--text)]">
+                Selected Work <span class="h-px bg-black/10 dark:bg-white/10 flex-grow"></span>
             </h2>
             
             <div class="space-y-16">
                 <!-- AWS -->
-                <div class="relative pl-8 border-l border-white/10">
-                    <div class="absolute -left-1.5 top-1.5 w-3 h-3 bg-blue-500 rounded-full shadow-[0_0_10px_#3b82f6]"></div>
+                <div class="relative pl-8 border-l border-black/10 dark:border-white/10">
+                    <div class="absolute -left-1.5 top-1.5 w-3 h-3 bg-blue-500 rounded-full shadow-[0_0_10px_rgba(59,130,246,0.5)]"></div>
                     <div class="mb-4">
-                        <h3 class="text-2xl font-bold text-white">Senior Software Engineer</h3>
-                        <p class="text-blue-400 mono text-sm mb-4">Amazon Web Services (AWS) · 2021 — Present</p>
-                        <p class="text-gray-400 text-sm mb-6 max-w-3xl leading-relaxed">
-                            Driving high-stakes performance and resiliency features for <span class="text-white">CloudFront</span>. 
+                        <h3 class="text-2xl font-bold text-[var(--text)]">Senior Software Engineer</h3>
+                        <p class="text-blue-500 dark:text-blue-400 mono text-sm mb-4">Amazon Web Services (AWS) · 2021 — Present</p>
+                        <p class="text-[var(--text-muted)] text-sm mb-6 max-w-3xl leading-relaxed">
+                            Driving high-stakes performance and resiliency features for <span class="text-[var(--text)]">CloudFront</span>. 
                             Specializing in core caching, request lifecycle optimization, and next-gen protocols (QUIC/HTTP3).
                         </p>
                     </div>
@@ -94,109 +115,93 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <a href="https://aws.amazon.com/about-aws/whats-new/2025/07/amazon-cloudfront-origin-response-timeout-controls/" target="_blank" class="card p-5 rounded-xl group">
                             <span class="text-[10px] uppercase tracking-widest text-blue-500 font-bold mb-2 block">2025 Release</span>
-                            <h4 class="font-bold text-base mb-2 group-hover:text-blue-400 transition-colors">Origin Response Timeout Controls</h4>
-                            <p class="text-xs text-gray-500 leading-relaxed italic">Lead Developer</p>
-                            <p class="text-xs text-gray-400 mt-2">Shipped fine-grained control over origin timeouts, significantly improving resiliency during origin-side latency spikes.</p>
+                            <h4 class="font-bold text-base mb-2 group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors">Origin Response Timeout Controls</h4>
+                            <p class="text-xs text-[var(--text-muted)] leading-relaxed italic">Lead Developer</p>
+                            <p class="text-xs text-[var(--text-muted)] mt-2">Shipped fine-grained control over origin timeouts, significantly improving resiliency during origin-side latency spikes.</p>
                         </a>
                         <a href="https://aws.amazon.com/about-aws/whats-new/2024/11/aws-announces-media-quality-aware-resiliency-live-streaming/" target="_blank" class="card p-5 rounded-xl group">
                             <span class="text-[10px] uppercase tracking-widest text-blue-500 font-bold mb-2 block">2024 Release</span>
-                            <h4 class="font-bold text-base mb-2 group-hover:text-blue-400 transition-colors">Media-Quality Aware Resiliency</h4>
-                            <p class="text-xs text-gray-500 leading-relaxed italic">Media & Entertainment Group</p>
-                            <p class="text-xs text-gray-400 mt-2">Developed intelligent failover mechanisms specifically for high-stakes live streaming and video delivery.</p>
+                            <h4 class="font-bold text-base mb-2 group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors">Media-Quality Aware Resiliency</h4>
+                            <p class="text-xs text-[var(--text-muted)] leading-relaxed italic">Media & Entertainment Group</p>
+                            <p class="text-xs text-[var(--text-muted)] mt-2">Developed intelligent failover mechanisms specifically for high-stakes live streaming and video delivery.</p>
                         </a>
                         <a href="https://aws.amazon.com/about-aws/whats-new/2021/11/amazon-cloudfront-supports-cors-security-custom-http-response-headers/" target="_blank" class="card p-5 rounded-xl group">
                             <span class="text-[10px] uppercase tracking-widest text-blue-500 font-bold mb-2 block">2021-2022 Release</span>
-                            <h4 class="font-bold text-base mb-2 group-hover:text-blue-400 transition-colors">CORS & Response Header Policies</h4>
-                            <p class="text-xs text-gray-500 leading-relaxed italic">Core Caching Team</p>
-                            <p class="text-xs text-gray-400 mt-2">Shipped the native CORS header module and custom response header policies, reducing logic complexity at the origin.</p>
+                            <h4 class="font-bold text-base mb-2 group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors">CORS & Response Header Policies</h4>
+                            <p class="text-xs text-[var(--text-muted)] leading-relaxed italic">Core Caching Team</p>
+                            <p class="text-xs text-[var(--text-muted)] mt-2">Shipped the native CORS header module and custom response header policies, reducing logic complexity at the origin.</p>
                         </a>
-                        <div class="card p-5 rounded-xl border-dashed border-white/5">
-                            <span class="text-[10px] uppercase tracking-widest text-gray-600 font-bold mb-2 block">Core Performance</span>
-                            <h4 class="font-bold text-base mb-2">Request Fanout & Collapsing</h4>
-                            <p class="text-xs text-gray-400">Optimized p99 latency through advanced request fanout and collapsed forwarding strategies in the caching layer.</p>
+                        <div class="card p-5 rounded-xl border-dashed border-black/5 dark:border-white/5">
+                            <span class="text-[10px] uppercase tracking-widest text-gray-500 font-bold mb-2 block">Core Performance</span>
+                            <h4 class="font-bold text-base mb-2 text-[var(--text)]">Request Fanout & Collapsing</h4>
+                            <p class="text-xs text-[var(--text-muted)]">Optimized p99 latency through advanced request fanout and collapsed forwarding strategies in the caching layer.</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Behavioral Signals -->
-                <div class="relative pl-8 border-l border-white/10">
+                <div class="relative pl-8 border-l border-black/10 dark:border-white/10">
                     <div class="absolute -left-1.5 top-1.5 w-3 h-3 bg-purple-500 rounded-full"></div>
                     <div class="mb-4">
-                        <h3 class="text-2xl font-bold text-white">Director of Application Engineering</h3>
-                        <p class="text-purple-400 mono text-sm mb-4">Behavioral Signals · 2016 — 2021</p>
-                        <p class="text-gray-400 text-sm mb-6 max-w-3xl leading-relaxed">
+                        <h3 class="text-2xl font-bold text-[var(--text)]">Director of Application Engineering</h3>
+                        <p class="text-purple-500 dark:text-purple-400 mono text-sm mb-4">Behavioral Signals · 2016 — 2021</p>
+                        <p class="text-[var(--text-muted)] text-sm mb-6 max-w-3xl leading-relaxed">
                             Headed the application engineering division, scaling emotion-aware AI systems and leading cross-functional teams of engineers and data scientists.
                         </p>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <a href="https://oliver.behavioralsignals.com" target="_blank" class="card p-5 rounded-xl group">
-                            <h4 class="font-bold text-base mb-2 group-hover:text-purple-400 transition-colors">Oliver API Platform</h4>
-                            <p class="text-xs text-gray-400">Led the development of a real-time emotion detection API for call centers using WebAudio, WebSockets, and React.</p>
+                            <h4 class="font-bold text-base mb-2 group-hover:text-purple-500 dark:group-hover:text-purple-400 transition-colors">Oliver API Platform</h4>
+                            <p class="text-xs text-[var(--text-muted)]">Led the development of a real-time emotion detection API for call centers using WebAudio, WebSockets, and React.</p>
                         </a>
                         <a href="https://behavioralsignals.com/ai-mediated-conversations-agent-customer-matching/" target="_blank" class="card p-5 rounded-xl group">
-                            <h4 class="font-bold text-base mb-2 group-hover:text-purple-400 transition-colors">AI-Mediated Matching</h4>
-                            <p class="text-xs text-gray-400">Architected the Agent-Customer matching suite, leveraging ML to pair callers based on behavioral profiles.</p>
+                            <h4 class="font-bold text-base mb-2 group-hover:text-purple-500 dark:group-hover:text-purple-400 transition-colors">AI-Mediated Matching</h4>
+                            <p class="text-xs text-[var(--text-muted)]">Architected the Agent-Customer matching suite, leveraging ML to pair callers based on behavioral profiles.</p>
                         </a>
                     </div>
-                </div>
-
-                <!-- IRISWeb -->
-                <div class="relative pl-8 border-l border-white/10">
-                    <div class="absolute -left-1 w-2 h-2 bg-gray-500 rounded-full"></div>
-                    <h3 class="text-xl font-bold text-white">Co-Founder & Senior Engineer</h3>
-                    <p class="text-gray-500 mono text-sm mb-2">IRISWeb · 2013 — 2018</p>
-                    <p class="text-sm text-gray-400 leading-relaxed">Built security and encryption applications in C/C++. Led cloud migrations (AWS/GCP) for early-stage enterprise customers.</p>
-                </div>
-
-                <!-- Behavioral Informatix -->
-                <div class="relative pl-8 border-l border-white/10">
-                    <div class="absolute -left-1 w-2 h-2 bg-gray-500 rounded-full"></div>
-                    <h3 class="text-xl font-bold text-white">Senior Software Engineer</h3>
-                    <p class="text-gray-500 mono text-sm mb-2">Behavioral Informatix · 2015 — 2016</p>
-                    <p class="text-sm text-gray-400 leading-relaxed">Architected a Java-based Web API handling 10k+ req/sec. Developed mission-critical real-time algorithmic kernels in C/C++.</p>
                 </div>
             </div>
         </section>
 
         <!-- Publications -->
         <section id="publications" class="mb-32">
-            <h2 class="text-3xl font-bold mb-12 flex items-center gap-4 text-white">
-                Research & Publications <span class="h-px bg-white/10 flex-grow"></span>
+            <h2 class="text-3xl font-bold mb-12 flex items-center gap-4 text-[var(--text)]">
+                Research & Publications <span class="h-px bg-black/10 dark:bg-white/10 flex-grow"></span>
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="card p-6 rounded-2xl">
-                    <h3 class="font-bold text-lg mb-2 leading-snug">High Performance Text Parsing Using Finite State Machines (FSM)</h3>
-                    <p class="text-sm text-gray-400 mb-4">Research into low-latency parsing techniques for large-scale text processing systems.</p>
-                    <span class="text-[10px] px-2 py-1 bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded">Technical Paper</span>
+                    <h3 class="font-bold text-lg mb-2 leading-snug text-[var(--text)]">High Performance Text Parsing Using Finite State Machines (FSM)</h3>
+                    <p class="text-sm text-[var(--text-muted)] mb-4">Research into low-latency parsing techniques for large-scale text processing systems.</p>
+                    <span class="text-[10px] px-2 py-1 bg-blue-500/10 text-blue-500 dark:text-blue-400 border border-blue-500/20 rounded">Technical Paper</span>
                 </div>
                 <div class="card p-6 rounded-2xl">
-                    <h3 class="font-bold text-lg mb-2 leading-snug">Using Oliver API for emotion-aware movie content characterization</h3>
-                    <p class="text-sm text-gray-400 mb-4">Leveraging behavioral signals to automate metadata tagging for media entertainment content.</p>
-                    <span class="text-[10px] px-2 py-1 bg-purple-500/10 text-purple-400 border border-purple-500/20 rounded">Research</span>
+                    <h3 class="font-bold text-lg mb-2 leading-snug text-[var(--text)]">Using Oliver API for emotion-aware movie content characterization</h3>
+                    <p class="text-sm text-[var(--text-muted)] mb-4">Leveraging behavioral signals to automate metadata tagging for media entertainment content.</p>
+                    <span class="text-[10px] px-2 py-1 bg-purple-500/10 text-purple-500 dark:text-purple-400 border border-purple-500/20 rounded">Research</span>
                 </div>
                 <div class="card p-6 rounded-2xl">
-                    <h3 class="font-bold text-lg mb-2 leading-snug">Multiple time resolution analysis of speech signal using MCE training</h3>
-                    <p class="text-sm text-gray-400 mb-4">Advanced DSP techniques applied to boundary detection and speech recognition accuracy.</p>
-                    <span class="text-[10px] px-2 py-1 bg-green-500/10 text-green-400 border border-green-500/20 rounded">DSP / Speech</span>
+                    <h3 class="font-bold text-lg mb-2 leading-snug text-[var(--text)]">Multiple time resolution analysis of speech signal using MCE training</h3>
+                    <p class="text-sm text-[var(--text-muted)] mb-4">Advanced DSP techniques applied to boundary detection and speech recognition accuracy.</p>
+                    <span class="text-[10px] px-2 py-1 bg-green-500/10 text-green-500 dark:text-green-400 border border-green-500/20 rounded">DSP / Speech</span>
                 </div>
                 <div class="card p-6 rounded-2xl">
-                    <h3 class="font-bold text-lg mb-2 leading-snug">How to connect AWS and Microsoft Azure VPNs</h3>
-                    <p class="text-sm text-gray-400 mb-4">Published guide on cross-cloud network architecture and site-to-site connectivity.</p>
-                    <span class="text-[10px] px-2 py-1 bg-orange-500/10 text-orange-400 border border-orange-500/20 rounded">Cloud Networking</span>
+                    <h3 class="font-bold text-lg mb-2 leading-snug text-[var(--text)]">How to connect AWS and Microsoft Azure VPNs</h3>
+                    <p class="text-sm text-[var(--text-muted)] mb-4">Published guide on cross-cloud network architecture and site-to-site connectivity.</p>
+                    <span class="text-[10px] px-2 py-1 bg-orange-500/10 text-orange-500 dark:text-orange-400 border border-orange-500/20 rounded">Cloud Networking</span>
                 </div>
             </div>
         </section>
 
         <!-- Terminal -->
         <section class="mb-32">
-            <div class="w-full bg-[#121212] border border-[#262626] rounded-xl overflow-hidden shadow-2xl font-mono">
+            <div class="w-full bg-[#121212] border border-[#262626] rounded-xl overflow-hidden shadow-2xl font-mono text-[#ededed]">
                 <div class="bg-[#1a1a1a] px-4 py-2 flex items-center gap-2 border-b border-[#262626]">
                     <div class="flex gap-1.5">
                         <div class="w-3 h-3 rounded-full bg-red-500/50"></div>
                         <div class="w-3 h-3 rounded-full bg-yellow-500/50"></div>
                         <div class="w-3 h-3 rounded-full bg-green-500/50"></div>
                     </div>
-                    <span class="text-[10px] mono text-gray-500 ml-4">zsh — spidim@kernel</span>
+                    <span class="text-[10px] mono text-gray-500 ml-4 uppercase tracking-tighter italic">system_mode: <span id="time-status">detecting...</span></span>
                 </div>
                 <div class="p-6 mono text-sm sm:text-base leading-relaxed overflow-x-auto">
                     <div class="flex gap-2">
@@ -228,17 +233,40 @@
         </section>
 
         <!-- Footer -->
-        <footer class="pt-20 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
-            <p class="text-xs text-gray-500 mono">© 2026 spiros-dimopoulos // built with openclaw</p>
-            <div class="flex gap-6 text-gray-400">
-                <a href="https://www.linkedin.com/in/spiros-dimopoulos-31319476" class="hover:text-white transition-colors"><i class="fab fa-linkedin"></i></a>
-                <a href="https://github.com/spidim" class="hover:text-white transition-colors"><i class="fab fa-github"></i></a>
+        <footer class="pt-20 border-t border-black/5 dark:border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+            <p class="text-xs text-[var(--text-muted)] mono">© 2026 spiros-dimopoulos // built with openclaw</p>
+            <div class="flex gap-6 text-[var(--text-muted)]">
+                <a href="https://www.linkedin.com/in/spiros-dimopoulos-31319476" class="hover:text-[var(--text)] transition-colors"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/spidim" class="hover:text-[var(--text)] transition-colors"><i class="fab fa-github"></i></a>
             </div>
         </footer>
 
     </main>
 
     <script>
+        function updateTheme() {
+            const hour = new Date().getHours();
+            const isNight = hour < 7 || hour >= 19; // Night mode between 7 PM and 7 AM
+            const body = document.body;
+            const status = document.getElementById('time-status');
+
+            if (isNight) {
+                body.classList.add('dark-mode');
+                status.innerText = 'night_shift_active';
+                status.style.color = '#60a5fa';
+            } else {
+                body.classList.remove('dark-mode');
+                status.innerText = 'daylight_opt_active';
+                status.style.color = '#3b82f6';
+            }
+        }
+
+        // Initialize theme
+        updateTheme();
+        
+        // Refresh theme every minute to catch transition
+        setInterval(updateTheme, 60000);
+
         // Smooth scroll for nav links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
