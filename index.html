@@ -44,11 +44,14 @@
     <nav class="fixed w-full z-50 bg-[var(--nav-bg)] backdrop-blur-md border-b border-black/5 dark:border-white/5">
         <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
             <span class="mono text-blue-500 dark:text-blue-400 font-bold">dimopoulos.me</span>
-            <div class="hidden md:flex gap-8 text-sm font-medium">
+            <div class="hidden md:flex gap-8 text-sm font-medium items-center">
                 <a href="#about" class="nav-link">About</a>
                 <a href="#experience" class="nav-link">Experience</a>
                 <a href="#publications" class="nav-link">Publications</a>
                 <a href="https://github.com/spidim" class="nav-link !text-[var(--text)]">GitHub</a>
+                <button id="theme-toggle" class="p-2 rounded-lg bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 hover:bg-black/10 dark:hover:bg-white/10 transition-colors">
+                    <i id="theme-icon" class="fas fa-moon text-blue-500"></i>
+                </button>
             </div>
         </div>
     </nav>
@@ -244,27 +247,50 @@
     </main>
 
     <script>
-        function updateTheme() {
-            const hour = new Date().getHours();
-            const isNight = hour < 7 || hour >= 19; // Night mode between 7 PM and 7 AM
-            const body = document.body;
-            const status = document.getElementById('time-status');
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const body = document.body;
+        const status = document.getElementById('time-status');
 
-            if (isNight) {
+        function setTheme(isDark) {
+            if (isDark) {
                 body.classList.add('dark-mode');
-                status.innerText = 'night_shift_active';
-                status.style.color = '#60a5fa';
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
+                themeIcon.style.color = '#60a5fa';
+                if(status) {
+                    status.innerText = 'night_shift_active';
+                    status.style.color = '#60a5fa';
+                }
             } else {
                 body.classList.remove('dark-mode');
-                status.innerText = 'daylight_opt_active';
-                status.style.color = '#3b82f6';
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
+                themeIcon.style.color = '#3b82f6';
+                if(status) {
+                    status.innerText = 'daylight_opt_active';
+                    status.style.color = '#3b82f6';
+                }
             }
         }
+
+        function updateTheme() {
+            // Respect manual override if user has clicked toggle in this session
+            if (sessionStorage.getItem('manual-theme')) return;
+
+            const hour = new Date().getHours();
+            const isNight = hour < 7 || hour >= 19;
+            setTheme(isNight);
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const isNowDark = !body.classList.contains('dark-mode');
+            sessionStorage.setItem('manual-theme', 'true');
+            setTheme(isNowDark);
+        });
 
         // Initialize theme
         updateTheme();
         
-        // Refresh theme every minute to catch transition
+        // Refresh auto-theme every minute unless manual override
         setInterval(updateTheme, 60000);
 
         // Smooth scroll for nav links
